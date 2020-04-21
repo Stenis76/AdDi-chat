@@ -11,6 +11,14 @@ function App() {
     socket.on("connect", () => {
       console.log("Connected to server");
     });
+
+    socket.on("message", (data) => {
+      console.log("New message: ", data);
+    });
+
+    socket.on("disconnect", () => {
+      console.log("Disconnected from server");
+    });
   }, []);
 
   return (
