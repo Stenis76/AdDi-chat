@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 import io from "socket.io-client";
+import "./styles.scss";
 
 const ChatPage = ({ name }) => {
   const [socket, setSocket] = useState(null);
@@ -38,26 +39,30 @@ const ChatPage = ({ name }) => {
 
   return (
     <div className="chat-page">
-      <h1>Chat page</h1>
-      <p>{"Hello " + name}</p>
-      <ul className="messages">
-        {messages.map((message, index) => (
-          <li key={index}>
-            <p>
-              {message.name} : {message.text}
-            </p>
-          </li>
-        ))}
-      </ul>
-      <div className="input-container">
-        <input
-          type="text"
-          id="input-message"
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-        />
-        <button onClick={sendMessage}>Send</button>
+      <div className="rooms">Här är rummen</div>
+      <div className="chat">
+        <h1>Chat page</h1>
+        <p>{"Hello " + name}</p>
+        <ul className="messages">
+          {messages.map((message, index) => (
+            <li key={index}>
+              <p>
+                {message.name} : {message.text}
+              </p>
+            </li>
+          ))}
+        </ul>
+        <div className="input-container">
+          <input
+            type="text"
+            id="input-message"
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+          />
+          <button onClick={sendMessage}>Send</button>
+        </div>
       </div>
+
       <Link to="/">Go home</Link>
     </div>
   );
