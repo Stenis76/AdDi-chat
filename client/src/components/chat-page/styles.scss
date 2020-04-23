@@ -1,0 +1,16 @@
+.chat-page {
+  margin: 0;
+  background: rgb(0, 0, 0);
+  color: white;
+  display: flex;
+  justify-content: center;
+
+  height: 100vh;
+
+  .rooms {
+    background-color: rgb(85, 85, 46);
+  }
+  .chat {
+    background-color: rgb(34, 34, 124);
+  }
+}
