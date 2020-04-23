@@ -5,41 +5,67 @@ import io from "socket.io-client";
 import "./styles.scss";
 
 const ChatPage = ({ name }) => {
-  const [socket, setSocket] = useState(null);
+  const [socket, setSocket] = useState(io("http://localhost:8080"));
   const [input, setInput] = useState("");
   const [messages, setMessages] = useState([]);
+  const [room, setRoom] = useState("General");
 
   // component did mount
   useEffect(() => {
-    setSocket(io("http://localhost:8080"));
-  }, []);
-
-  useEffect(() => {
-    if (!socket) return;
-
     socket.on("connect", () => {
       console.log("Connected to server");
+
+      socket.emit("new-user", name);
+      socket.emit("join-room", room);
     });
 
     socket.on("message", (msg) => {
+      console.log("helloooooo");
+
       setMessages((prevState) => [...prevState, msg]);
     });
 
     socket.on("disconnect", () => {
       console.log("Disconnected from server");
     });
-  }, [socket]);
+  }, []);
 
   const sendMessage = () => {
     const message = { text: input, name };
 
-    socket.emit("message", message);
+    socket.emit("message", room, message);
     setInput("");
   };
 
   return (
     <div className="chat-page">
-      <div className="rooms">Här är rummen</div>
+      <div className="rooms">
+        Här är rummen
+        <ul>
+          <li>
+            <button
+              onClick={(e) => {
+                socket.emit("join-room", "General");
+                setMessages([]);
+                setRoom("General");
+              }}
+            >
+              General
+            </button>
+          </li>
+          <li>
+            <button
+              onClick={(e) => {
+                socket.emit("join-room", "Rum 1");
+                setMessages([]);
+                setRoom("Rum 1");
+              }}
+            >
+              Rum 1
+            </button>
+          </li>
+        </ul>
+      </div>
       <div className="chat">
         <h1>Chat page</h1>
         <p>{"Hello " + name}</p>
