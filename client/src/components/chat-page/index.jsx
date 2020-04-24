@@ -7,41 +7,65 @@ import RoomList from "../room-list";
 
 import "./styles.scss";
 
+const socket = io("http://localhost:6800");
+const defaultRoom = {
+  name: "General",
+  users: [],
+};
+
 const ChatPage = ({ name }) => {
-  const [socket] = useState(io("http://localhost:6800"));
   const [input, setInput] = useState("");
   const [messages, setMessages] = useState([]);
-  const [room, setRoom] = useState("General");
+  const [room, setRoom] = useState(defaultRoom);
   const [rooms, setRooms] = useState([]);
 
   // component did mount
   useEffect(() => {
+    console.log("mount");
+
     socket.on("connect", () => {
       console.log("Connected to server");
 
       socket.emit("new-user", name);
-      socket.emit("join-room", "General", name);
+      // socket.emit("join-room", "General", name);
     });
 
     socket.on("rooms", (rooms) => {
       setRooms(rooms);
     });
 
-    socket.on("message", (msg) => {
-      console.log("helloooooo");
+    socket.on("user-connected", (username, roomName) => {
+      const message = {
+        text: `${username} joined ${roomName}.`,
+      };
 
+      setRoom((prev) => ({ ...prev, users: [...room.users, username] }));
+      setMessages((prevState) => [...prevState, message]);
+    });
+
+    socket.on("room-users", (users) => {
+      setRoom((prev) => ({ ...prev, users }));
+    });
+
+    socket.on("message", (msg) => {
       setMessages((prevState) => [...prevState, msg]);
     });
 
     socket.on("disconnect", () => {
       console.log("Disconnected from server");
     });
+
+    // component did unmount
+    return () => {
+      socket.emit("disconnect");
+    };
   }, []);
+  console.log("room", room);
 
   const sendMessage = () => {
     const message = { text: input, name };
     setMessages((prevState) => [...prevState, message]);
-    socket.emit("message", room, message);
+    socket.emit("message", room.name, message);
     setInput("");
   };
 
@@ -49,7 +73,7 @@ const ChatPage = ({ name }) => {
     <div className="chat-page">
       <div className="rooms">
         <h4>Your chat rooms</h4>
-        {/* <RoomList rooms={rooms} /> */}
+        <RoomList rooms={rooms} />
         <p>Click to enter or press create to make a new room</p>
         <ul>
           <li>
@@ -57,7 +81,7 @@ const ChatPage = ({ name }) => {
               onClick={(e) => {
                 socket.emit("join-room", "General", name);
                 setMessages([]);
-                setRoom("General");
+                setRoom({ name: "General", users: [] });
               }}
             >
               General
@@ -68,7 +92,7 @@ const ChatPage = ({ name }) => {
               onClick={(e) => {
                 socket.emit("join-room", "Rum 1", name);
                 setMessages([]);
-                setRoom("Rum 1");
+                setRoom({ name: "Rum 1", users: [] });
               }}
             >
               Rum 1
@@ -80,6 +104,13 @@ const ChatPage = ({ name }) => {
         <div className="chat-header">
           <h1>Chat page</h1>
           <p>{"Hello " + name}</p>
+          <p>{`Room: ${room.name}`}</p>
+          <h4>Users: </h4>
+          <ul>
+            {room.users.map((user, index) => (
+              <li key={index}>{user}</li>
+            ))}
+          </ul>
           <Link to="/">Go home</Link>
         </div>
         <div className="chat-box">
