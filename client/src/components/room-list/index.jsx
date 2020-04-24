@@ -1,6 +1,6 @@
 import React from "react";
 
-const RoomList = ({ rooms }) => {
+const RoomList = ({ rooms, joinRoom }) => {
   if (!rooms) return <h2>Loading...</h2>;
   // console.log("rooms", rooms);
 
@@ -8,7 +8,9 @@ const RoomList = ({ rooms }) => {
     <div className="room-list">
       <ul>
         {rooms.map((room, index) => (
-          <li key={index}>{room}</li>
+          <li key={index} onClick={() => joinRoom(room)}>
+            {room}
+          </li>
         ))}
       </ul>
     </div>

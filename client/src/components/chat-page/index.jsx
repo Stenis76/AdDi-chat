@@ -1,50 +1,40 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
-import io from "socket.io-client";
-
 import RoomList from "../room-list";
 
 import "./styles.scss";
 
-const socket = io("http://localhost:6800");
 const defaultRoom = {
   name: "General",
   users: [],
 };
 
-const ChatPage = ({ name }) => {
+const ChatPage = ({ name, socket }) => {
   const [input, setInput] = useState("");
   const [messages, setMessages] = useState([]);
-  const [room, setRoom] = useState(defaultRoom);
+  const [currentRoom, setCurrentRoom] = useState(defaultRoom);
   const [rooms, setRooms] = useState([]);
-
+  const [newRoomName, setNewRoomName] = useState("");
   // component did mount
   useEffect(() => {
-    console.log("mount");
-
     socket.on("connect", () => {
       console.log("Connected to server");
 
-      socket.emit("new-user", name);
-      // socket.emit("join-room", "General", name);
+      // socket.emit("new-user", name);
+      socket.emit("join-room", "General", name);
     });
 
     socket.on("rooms", (rooms) => {
+      console.log("rooms", rooms);
+
       setRooms(rooms);
     });
 
-    socket.on("user-connected", (username, roomName) => {
-      const message = {
-        text: `${username} joined ${roomName}.`,
-      };
-
-      setRoom((prev) => ({ ...prev, users: [...room.users, username] }));
-      setMessages((prevState) => [...prevState, message]);
-    });
-
     socket.on("room-users", (users) => {
-      setRoom((prev) => ({ ...prev, users }));
+      console.log("users", users);
+
+      setCurrentRoom((prev) => ({ ...prev, users }));
     });
 
     socket.on("message", (msg) => {
@@ -55,60 +45,54 @@ const ChatPage = ({ name }) => {
       console.log("Disconnected from server");
     });
 
-    // component did unmount
-    return () => {
-      socket.emit("disconnect");
-    };
+    joinRoom("General"); // Join a defaul room
   }, []);
-  console.log("room", room);
 
   const sendMessage = () => {
     const message = { text: input, name };
     setMessages((prevState) => [...prevState, message]);
-    socket.emit("message", room.name, message);
+    socket.emit("message", currentRoom.name, message);
     setInput("");
+  };
+
+  const joinRoom = (room) => {
+    socket.emit("join-room", room, name);
+    setMessages([]);
+    setCurrentRoom({ name: room, users: [] });
   };
 
   return (
     <div className="chat-page">
       <div className="rooms">
         <h4>Your chat rooms</h4>
-        <RoomList rooms={rooms} />
-        <p>Click to enter or press create to make a new room</p>
-        <ul>
-          <li>
-            <button
-              onClick={(e) => {
-                socket.emit("join-room", "General", name);
-                setMessages([]);
-                setRoom({ name: "General", users: [] });
-              }}
-            >
-              General
-            </button>
-          </li>
-          <li>
-            <button
-              onClick={(e) => {
-                socket.emit("join-room", "Rum 1", name);
-                setMessages([]);
-                setRoom({ name: "Rum 1", users: [] });
-              }}
-            >
-              Rum 1
-            </button>
-          </li>
-        </ul>
+        <RoomList rooms={rooms} joinRoom={joinRoom} />
+        <div>
+          <p>Create a room</p>
+          <input
+            type="text"
+            value={newRoomName}
+            onChange={(e) => setNewRoomName(e.target.value)}
+          />
+          <button
+            onClick={() => {
+              if (newRoomName.length > 0) {
+                joinRoom(newRoomName);
+              }
+            }}
+          >
+            Create
+          </button>
+        </div>
       </div>
       <div className="chat">
         <div className="chat-header">
           <h1>Chat page</h1>
           <p>{"Hello " + name}</p>
-          <p>{`Room: ${room.name}`}</p>
+          <p>{`Room: ${currentRoom.name}`}</p>
           <h4>Users: </h4>
           <ul>
-            {room.users.map((user, index) => (
-              <li key={index}>{user}</li>
+            {currentRoom.users.map((user, index) => (
+              <li key={index}>{user.name}</li>
             ))}
           </ul>
           <Link to="/">Go home</Link>
