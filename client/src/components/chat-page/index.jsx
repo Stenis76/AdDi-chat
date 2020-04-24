@@ -38,9 +38,10 @@ const ChatPage = ({ name }) => {
   };
 
   return (
-    <div className="chat-page">
+    <div className="chatRoom-container">
       <div className="rooms">
-        Här är rummen
+        <h4>Your chat rooms</h4>
+        <p>Click to enter or press create to make a new room</p>
         <ul>
           <li>
             <button
@@ -67,29 +68,32 @@ const ChatPage = ({ name }) => {
         </ul>
       </div>
       <div className="chat">
-        <h1>Chat page</h1>
-        <p>{"Hello " + name}</p>
-        <ul className="messages">
-          {messages.map((message, index) => (
-            <li key={index}>
-              <p>
-                {message.name} : {message.text}
-              </p>
-            </li>
-          ))}
-        </ul>
-        <div className="input-container">
-          <input
-            type="text"
-            id="input-message"
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-          />
-          <button onClick={sendMessage}>Send</button>
+        <div className="chat-header">
+          <h1>Chat page</h1>
+          <p>{"Hello " + name}</p>
+          <Link to="/">Go home</Link>
+        </div>
+        <div className="chat-box">
+          <ul className="messages">
+            {messages.map((message, index) => (
+              <li key={index}>
+                <p>
+                  {message.name} : {message.text}
+                </p>
+              </li>
+            ))}
+          </ul>
+          <div className="input-container">
+            <input
+              type="text"
+              id="input-message"
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+            />
+            <button onClick={sendMessage}>Send</button>
+          </div>
         </div>
       </div>
-
-      <Link to="/">Go home</Link>
     </div>
   );
 };
