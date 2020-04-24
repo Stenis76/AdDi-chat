@@ -6,6 +6,7 @@
   align-items: center;
   justify-content: center;
   height: 100vh;
+  font-family: "Comfortaa";
 
   .log-in {
     border: 5px solid yellow;
@@ -14,10 +15,12 @@
     border-radius: 20px;
     display: flex;
     flex-direction: column;
+    align-items: center;
 
     h1 {
       font-size: 4rem;
       color: yellow;
+      font-family: "Comfortaa";
     }
     h5 {
       font-size: 1rem;

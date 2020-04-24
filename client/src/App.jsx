@@ -4,7 +4,7 @@ import { Switch, Route, Redirect } from "react-router-dom";
 import StartPage from "./components/start-page";
 import ChatPage from "./components/chat-page";
 
-import "./App.css";
+// import "./App.css";
 
 function App() {
   const [name, setName] = useState("");
