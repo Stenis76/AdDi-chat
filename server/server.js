@@ -15,7 +15,7 @@ io.on("connection", (socket) => {
     // leave previous room before joining new one
     const roomToLeave = getUsersRoom(socket);
     if (roomToLeave) {
-      leaveRoom(roomToLeave);
+      leaveRoom(roomToLeave, socket);
     }
 
     // check if room already exists
@@ -58,8 +58,8 @@ io.on("connection", (socket) => {
 //   }
 // }
 
-function leaveRoom(roomToLeave) {
-  if (roomToLeave) {
+function leaveRoom(roomToLeave, socket) {
+  if (roomToLeave && socket) {
     delete rooms[roomToLeave].users[socket.id];
 
     if (JSON.stringify(rooms[roomToLeave].users) === "{}") {
