@@ -2,13 +2,17 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 import io from "socket.io-client";
+
+import RoomList from "../room-list";
+
 import "./styles.scss";
 
 const ChatPage = ({ name }) => {
-  const [socket, setSocket] = useState(io("http://localhost:8080"));
+  const [socket] = useState(io("http://localhost:6800"));
   const [input, setInput] = useState("");
   const [messages, setMessages] = useState([]);
   const [room, setRoom] = useState("General");
+  const [rooms, setRooms] = useState([]);
 
   // component did mount
   useEffect(() => {
@@ -16,7 +20,11 @@ const ChatPage = ({ name }) => {
       console.log("Connected to server");
 
       socket.emit("new-user", name);
-      socket.emit("join-room", room);
+      socket.emit("join-room", "General", name);
+    });
+
+    socket.on("rooms", (rooms) => {
+      setRooms(rooms);
     });
 
     socket.on("message", (msg) => {
@@ -32,21 +40,22 @@ const ChatPage = ({ name }) => {
 
   const sendMessage = () => {
     const message = { text: input, name };
-
+    setMessages((prevState) => [...prevState, message]);
     socket.emit("message", room, message);
     setInput("");
   };
 
   return (
-    <div className="chatRoom-container">
+    <div className="chat-page">
       <div className="rooms">
         <h4>Your chat rooms</h4>
+        {/* <RoomList rooms={rooms} /> */}
         <p>Click to enter or press create to make a new room</p>
         <ul>
           <li>
             <button
               onClick={(e) => {
-                socket.emit("join-room", "General");
+                socket.emit("join-room", "General", name);
                 setMessages([]);
                 setRoom("General");
               }}
@@ -57,7 +66,7 @@ const ChatPage = ({ name }) => {
           <li>
             <button
               onClick={(e) => {
-                socket.emit("join-room", "Rum 1");
+                socket.emit("join-room", "Rum 1", name);
                 setMessages([]);
                 setRoom("Rum 1");
               }}

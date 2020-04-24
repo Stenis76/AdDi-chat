@@ -1,4 +1,4 @@
-.chatRoom-container {
+.chat-page {
   margin: 0;
   background: white;
   color: black;
@@ -11,6 +11,7 @@
     background-color: rgb(221, 221, 136);
     width: 30vw;
   }
+
   .chat {
     background-color: grayscale($color: #cf4343);
     width: 70vw;
