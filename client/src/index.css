@@ -1,14 +1,30 @@
+* {
+  box-sizing: border-box;
+}
+
+@font-face {
+  font-family: "KOHNE MAKINA";
+  src: url("KOHNE\ MAKINA.ttf");
+}
+
 body {
   height: 100vh;
   margin: 0;
+  /* overflow: hidden; */
   font-family: -apple-system, BlinkMacSystemFont, "Comfortaa", "Roboto",
     "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  /* background: #ffc700;
+}
+
+.orange-bg {
+  background: #ffc700;
   background: -webkit-linear-gradient(45deg, #ff1f01, #fd5d1b, #ffc700);
-  background: linear-gradient(45deg, #ff1f01, #fd5d1b, #ffc700); */
+  background: linear-gradient(45deg, #ff1f01, #fd5d1b, #ffc700);
+}
+
+.blue-bg {
   background-image: linear-gradient(
     135deg,
     #8af0ff 0,
@@ -17,6 +33,22 @@ body {
     #00a9dc 75%,
     #0093cd 100%
   );
+}
+
+.red-bg {
+  background: #ff416c;
+  /* fallback for old browsers */
+  background: -webkit-linear-gradient(45deg, #ff4b2b, #ff416c);
+  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(45deg, #ff4b2b, #ff416c);
+  /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: "KOHNE MAKINA";
 }
 
 button.primary {

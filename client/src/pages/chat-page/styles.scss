@@ -1,8 +1,7 @@
 .chat-page {
-  height: 100%;
+  height: calc(100% - 70px);
   display: grid;
-  grid-template-columns: 2fr 4fr 1fr;
-  // .room-sidebar {
-  //   width: 30vw;
-  // }
+  grid-template-columns: 1fr 2fr 1fr;
+  max-width: 1268px;
+  margin: 0 auto;
 }

@@ -12,7 +12,10 @@ const RoomList = ({ rooms, currentRoom, joinRoom }) => {
           <li
             className={`room ${currentRoom === room ? "current-room" : ""}`}
             key={index}
-            onClick={() => joinRoom(room)}
+            onClick={() => {
+              if (currentRoom === room) return;
+              joinRoom(room);
+            }}
           >
             {room}
           </li>

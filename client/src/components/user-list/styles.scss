@@ -4,11 +4,16 @@
   align-items: center;
 
   ul {
+    width: 100%;
     list-style-type: none;
-    margin: 0;
-    padding: 0;
 
     .user {
+      margin-bottom: 0.5rem;
+      padding: 0.5rem;
+      border-radius: 0.3rem;
+      // backdrop-filter: brightness(200%) ;
+      // backdrop-filter: hue-rotate(120deg);
+      backdrop-filter: invert(40%);
       .status {
         width: 10px;
         height: 10px;

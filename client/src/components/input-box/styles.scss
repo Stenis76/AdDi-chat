@@ -18,13 +18,19 @@
       flex-grow: 1;
       outline: none;
       border: none;
-      padding: 0.7rem;
+      padding: 1rem 0.7rem;
       border-radius: 0.5rem 0 0 0.5rem;
     }
 
     .btn {
       border-radius: 0 0.5rem 0.5rem 0;
       letter-spacing: 1px;
+
+      &:hover {
+        // filter: invert(1);
+        background-color: #fd5d1b;
+        color: black;
+      }
     }
   }
 }

@@ -2,10 +2,11 @@
   margin-bottom: 2rem;
   ul {
     list-style-type: "#";
-    padding: 0;
+    padding-left: 1rem;
     margin: 0;
 
     .room {
+      margin: 0.5rem 0;
       cursor: pointer;
 
       &.current-room {

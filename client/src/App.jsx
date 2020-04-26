@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
 
+import Header from "./components/header";
 import StartPage from "./pages/start-page";
 import ChatPage from "./pages/chat-page";
 
@@ -25,10 +26,8 @@ function App() {
   }, []);
 
   return (
-    <div
-      className="App"
-      style={{ height: "inherit", maxWidth: "1268px", margin: "0 auto" }}
-    >
+    <div className="App" style={{ height: "inherit" }}>
+      <Header />
       <Switch>
         <Route exact path="/">
           <StartPage submitName={submitName} />
