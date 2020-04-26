@@ -25,7 +25,10 @@ function App() {
   }, []);
 
   return (
-    <div className="App" style={{ height: "inherit" }}>
+    <div
+      className="App"
+      style={{ height: "inherit", maxWidth: "1268px", margin: "0 auto" }}
+    >
       <Switch>
         <Route exact path="/">
           <StartPage submitName={submitName} />

@@ -1,23 +1,32 @@
 .chat {
-  // background-color: grayscale($color: #cf4343);
-
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding: 0 2rem;
 
   .chat-header {
-    // background-color: rgb(102, 102, 230);
   }
 
   .messages {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
     list-style-type: none;
     margin: 0;
     padding: 1rem 0;
 
     .message-box {
-      background-color: #ddd;
+      max-width: 70%;
+      background-color: #f2eaec;
       padding: 1rem;
       border-radius: 0.5rem;
+      margin: 0.5rem;
+
+      &.my-message {
+        background-color: #0ce5e1;
+        margin-left: auto;
+      }
 
       .author {
         display: flex;
@@ -27,14 +36,7 @@
     }
   }
 
-  .chat-box {
-    // background-color: rgb(123, 230, 102);
-
-    .input-container {
-      width: 100%;
-      // background-color: blue;
-      // display: flex;
-      // justify-content: flex-end;
-    }
+  .input-container {
+    width: 100%;
   }
 }

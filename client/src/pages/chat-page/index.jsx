@@ -46,9 +46,11 @@ const ChatPage = ({ name, socket }) => {
 
   const sendMessage = (message) => {
     const formattedMessage = { text: message, name };
-    setMessages([...messages, message]);
+    setMessages((prev) => [...prev, formattedMessage]);
     socket.emit("message", currentRoom, formattedMessage);
   };
+
+  console.log("msges", messages);
 
   const joinRoom = (room) => {
     socket.emit("join-room", room, name);

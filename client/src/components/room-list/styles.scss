@@ -5,8 +5,12 @@
     padding: 0;
     margin: 0;
 
-    .current-room {
-      font-weight: bold;
+    .room {
+      cursor: pointer;
+
+      &.current-room {
+        font-weight: bold;
+      }
     }
   }
 }

@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 
+import Message from "../message";
+import InputBox from "../input-box";
+
 import "./styles.scss";
 
 const Chat = ({ username, currentRoom, messages, sendMessage }) => {
-  const [newMessage, setNewMessage] = useState("");
-  console.log(currentRoom);
-
   return (
     <div className="chat">
       <div className="chat-header">
@@ -16,23 +16,16 @@ const Chat = ({ username, currentRoom, messages, sendMessage }) => {
 
       <ul className="messages">
         {messages.map((message, index) => (
-          <li className="message-box" key={index}>
-            <div className="author">
-              <span className="name">{message.name}</span>{" "}
-              <span className="time">{"13:37"}</span>
-            </div>
-            <p className="message">{message.text}</p>
-          </li>
+          <Message key={index} message={message} username={username} />
         ))}
       </ul>
       <div className="input-container">
-        <input
+        <InputBox
+          callback={sendMessage}
+          title="send"
           type="text"
-          id="input-message"
-          value={newMessage}
-          onChange={(e) => setNewMessage(e.target.value)}
+          placeholder="Write a new message"
         />
-        <button onClick={() => sendMessage(newMessage)}>Send</button>
       </div>
     </div>
   );
