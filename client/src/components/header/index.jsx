@@ -1,9 +1,14 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import "./styles.scss";
 
 const Header = () => {
+  useEffect(() => {
+    const bgColor = localStorage.getItem("bg-color") || "white";
+    changeBackground(bgColor);
+  }, []);
   const changeBackground = (color) => {
+    localStorage.setItem("bg-color", color);
     switch (color) {
       case "orange":
         document.body.classList.add("orange-bg");
