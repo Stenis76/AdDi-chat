@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 
 import RoomSidebar from "../../components/room-sidebar";
 import Chat from "../../components/chat";
@@ -12,14 +11,12 @@ const ChatPage = ({ name, socket }) => {
   const [currentRoom, setCurrentRoom] = useState("General");
   const [rooms, setRooms] = useState([]);
   const [users, setUsers] = useState([]);
+  console.log("rooms", rooms);
 
   // component did mount
   useEffect(() => {
     socket.on("connect", () => {
       console.log("Connected to server");
-
-      // socket.emit("new-user", name);
-      socket.emit("join-room", "General", name);
     });
 
     socket.on("rooms", (rooms) => {
@@ -34,14 +31,19 @@ const ChatPage = ({ name, socket }) => {
     });
 
     socket.on("message", (msg) => {
+      // add new message
       setMessages((prevState) => [...prevState, msg]);
+    });
+
+    socket.on("wrong-password", (msg) => {
+      console.log(msg);
     });
 
     socket.on("disconnect", () => {
       console.log("Disconnected from server");
     });
 
-    joinRoom("General"); // Join a defaul room
+    joinRoom("General", null); // Join a defaul room
   }, []);
 
   const sendMessage = (message) => {
@@ -50,10 +52,8 @@ const ChatPage = ({ name, socket }) => {
     socket.emit("message", currentRoom, formattedMessage);
   };
 
-  console.log("msges", messages);
-
-  const joinRoom = (room) => {
-    socket.emit("join-room", room, name);
+  const joinRoom = (room, password) => {
+    socket.emit("join-room", room, name, password);
     setMessages([]);
     setCurrentRoom(room);
   };
@@ -72,41 +72,6 @@ const ChatPage = ({ name, socket }) => {
         sendMessage={sendMessage}
       />
       <UserSidebar users={users} />
-
-      {/* <div className="chat"> */}
-      {/* <div className="chat-header">
-          <h1>Chat page</h1>
-          <p>{"Hello " + name}</p>
-          <p>{`Room: ${currentRoom.name}`}</p>
-          <h4>Users: </h4>
-          <ul>
-            {currentRoom.users.map((user, index) => (
-              <li key={index}>{user.name}</li>
-            ))}
-          </ul>
-          <Link to="/">Go home</Link>
-        </div>
-        <div className="chat-box">
-          <ul className="messages">
-            {messages.map((message, index) => (
-              <li key={index}>
-                <p>
-                  {message.name} : {message.text}
-                </p>
-              </li>
-            ))}
-          </ul>
-          <div className="input-container">
-            <input
-              type="text"
-              id="input-message"
-              value={newMessage}
-              onChange={(e) => setNewMessage(e.target.value)}
-            />
-            <button onClick={sendMessage}>Send</button>
-          </div>
-        </div> */}
-      {/* </div> */}
     </div>
   );
 };
