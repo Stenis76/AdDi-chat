@@ -11,7 +11,7 @@ const ChatPage = ({ name, socket }) => {
   const [currentRoom, setCurrentRoom] = useState("General");
   const [rooms, setRooms] = useState([]);
   const [users, setUsers] = useState([]);
-  console.log("rooms", rooms);
+
 
   // component did mount
   useEffect(() => {

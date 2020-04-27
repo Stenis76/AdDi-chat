@@ -14,10 +14,10 @@ const RoomSidebar = ({ rooms, currentRoom, joinRoom }) => {
   const [password, setPassword] = useState("");
 
   const roomToCreate = (room) => {
-    console.log(room);
+
     if (checked == true) {
-      joinRoom(room, password)
       console.log("password is " + password);
+      joinRoom(room, password)
 
     }
     else {
@@ -42,7 +42,7 @@ const RoomSidebar = ({ rooms, currentRoom, joinRoom }) => {
         />
         <div>
           <label htmlFor="activate-password">Password on room</label>
-          <input onClick={handleClick} checked={checked} type="checkbox" />
+          <input onChange={handleClick} checked={checked} type="checkbox" />
           <input type="text" placeholder="Choose a password" value={password} onChange={(e) => setPassword(e.target.value)} />
         </div>
       </main>
