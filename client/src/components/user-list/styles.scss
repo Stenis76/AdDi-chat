@@ -1,0 +1,30 @@
+.user-list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  ul {
+    width: 100%;
+    list-style-type: none;
+
+    .user {
+      margin-bottom: 0.5rem;
+      padding: 0.5rem;
+      border-radius: 0.3rem;
+      // backdrop-filter: brightness(200%) ;
+      // backdrop-filter: hue-rotate(120deg);
+      backdrop-filter: invert(20%) brightness(80%) saturate(120%);
+      .status {
+        width: 10px;
+        height: 10px;
+        border-radius: 999rem;
+        background-color: rgb(5, 150, 5);
+        display: inline-block;
+        margin-right: 0.5rem;
+      }
+
+      .name {
+      }
+    }
+  }
+}

@@ -1,0 +1,46 @@
+.header {
+  background-color: #222;
+  color: white;
+  padding: 1rem 0;
+
+  display: grid;
+  grid-template-columns: 1fr 3fr 1fr;
+  grid-template-areas: ". brand colors";
+
+  .brand {
+    grid-area: brand;
+    margin: 0;
+    text-align: center;
+  }
+
+  .colors {
+    grid-area: colors;
+    display: flex;
+    flex-wrap: nowrap;
+
+    .color {
+      display: inline-block;
+      width: 2rem;
+      height: 100%;
+      margin-left: 0.5rem;
+      border-radius: 0.3rem;
+      cursor: pointer;
+
+      &.orange {
+        background-color: #fd5d1b;
+      }
+
+      &.red {
+        background-color: #ff416c;
+      }
+
+      &.blue {
+        background-color: #0cc1ed;
+      }
+
+      &.white {
+        background-color: white;
+      }
+    }
+  }
+}

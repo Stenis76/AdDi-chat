@@ -1,11 +1,10 @@
 .start-page {
   margin: 0;
-  background: rgb(0, 0, 0);
   color: white;
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 100vh;
+  height: calc(100% - 70px);
   font-family: "Comfortaa";
 
   .log-in {

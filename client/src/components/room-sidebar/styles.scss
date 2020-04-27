@@ -1,0 +1,16 @@
+.room-sidebar {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+
+  .sidebar-header {
+    backdrop-filter: saturate(1.5) brightness(80%);
+    border-radius: 0 0 0 0.5rem;
+
+    padding: 0 2rem;
+  }
+
+  .sidebar-content {
+    padding: 0.5rem 2rem;
+  }
+}

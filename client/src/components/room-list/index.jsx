@@ -1,14 +1,22 @@
 import React from "react";
 
-const RoomList = ({ rooms, joinRoom }) => {
+import "./styles.scss";
+
+const RoomList = ({ rooms, currentRoom, joinRoom }) => {
   if (!rooms) return <h2>Loading...</h2>;
-  // console.log("rooms", rooms);
 
   return (
     <div className="room-list">
       <ul>
         {rooms.map((room, index) => (
-          <li key={index} onClick={() => joinRoom(room)}>
+          <li
+            className={`room ${currentRoom === room ? "current-room" : ""}`}
+            key={index}
+            onClick={() => {
+              if (currentRoom === room) return;
+              joinRoom(room);
+            }}
+          >
             {room}
           </li>
         ))}
