@@ -1,18 +1,17 @@
 import React from "react";
 
 import RoomList from "../room-list";
-import InputBox from "../input-box";
+import InputBoxRoom from "../input-box-room";
 
 import "./styles.scss";
-import { useState } from "react";
 
-const RoomSidebar = ({ rooms, currentRoom, joinRoom }) => {
-  const [passwordChecked, setPasswordChecked] = useState(false);
-  const handleClick = () => setPasswordChecked(!passwordChecked);
-
-  const [password, setPassword] = useState("");
-  console.log("password", password);
-
+const RoomSidebar = ({
+  rooms,
+  currentRoom,
+  joinRoom,
+  password,
+  passwordChecked,
+}) => {
   const roomToCreate = (roomName) => {
     if (passwordChecked == true) {
       console.log("password is " + password);
@@ -29,27 +28,12 @@ const RoomSidebar = ({ rooms, currentRoom, joinRoom }) => {
       </header>
       <main className="sidebar-content">
         <RoomList rooms={rooms} joinRoom={joinRoom} currentRoom={currentRoom} />
-        <InputBox
+        <InputBoxRoom
           callback={roomToCreate}
           title={"create"}
           type="text"
           placeholder="Write name of new room"
-          emitTyping={(bool) => {}}
         />
-        <div>
-          <input
-            onChange={handleClick}
-            checked={passwordChecked}
-            type="checkbox"
-          />
-          <label htmlFor="activate-password">Password protect room</label>
-          <input
-            type="text"
-            placeholder="Choose a password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </div>
       </main>
     </div>
   );
