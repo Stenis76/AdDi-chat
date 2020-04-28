@@ -5,7 +5,7 @@ import InputBox from "../input-box";
 
 import "./styles.scss";
 
-const Chat = ({ username, currentRoom, messages, sendMessage }) => {
+const Chat = ({ username, messages, sendMessage, emitTyping }) => {
   const ref = createRef();
 
   useEffect(() => {
@@ -28,6 +28,7 @@ const Chat = ({ username, currentRoom, messages, sendMessage }) => {
         <div className="input-container">
           <InputBox
             callback={sendMessage}
+            emitTyping={emitTyping}
             title="send"
             type="text"
             placeholder="Write a new message"
