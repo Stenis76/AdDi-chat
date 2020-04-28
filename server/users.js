@@ -2,34 +2,26 @@ const users = [];
 
 const rooms = {};
 
-function userJoin(id, name, roomName, password = null) {
-  const user = { id, name, roomName };
+function userJoin(id, name, room) {
+  const user = { id, name, room: room.name };
 
   //room does not exist
-  if (rooms[roomName] === undefined) {
-    console.log("DND");
-
-    rooms[roomName] = password; // create room
+  if (rooms[room.name] === undefined) {
+    rooms[room.name] = room.password; // create room
     users.push(user); // add user
   }
   // no password
-  else if (rooms[roomName] === null) {
-    console.log("no pass");
-
+  else if (rooms[room.name] === null) {
     users.push(user); // add user
   }
   // password
   else {
-    console.log("password");
-
-    if (rooms[roomName] === password) {
+    if (rooms[room.name] === room.password) {
       users.push(user); // add user
     } else {
       return null;
     }
   }
-
-  console.log("rooms", rooms);
 
   return user;
 }
@@ -39,6 +31,11 @@ function userLeave(id) {
   if (index !== -1) {
     const user = users.splice(index, 1)[0];
 
+    const roomUsers = getRoomUsers(user.room);
+    if (user.room !== "General" && roomUsers.length === 0) {
+      delete rooms[user.room];
+    }
+
     return user;
   }
 }
@@ -47,17 +44,17 @@ function geUser(id) {
   return users.find((user) => user.id === id);
 }
 
-function getRoomUsers(room) {
-  return users.filter((user) => user.roomName === room);
+function getRoomUsers(roomName) {
+  return users.filter((user) => user.room === roomName);
 }
 
-function getAllRooms() {
-  const roomSet = new Set();
-  users.forEach((user) => {
-    if (user.roomName) roomSet.add(user.roomName);
-  });
-  return [...roomSet.keys()];
-}
+// function getAllRooms() {
+//   const roomSet = new Set();
+//   users.forEach((user) => {
+//     if (user.roomName) roomSet.add(user.roomName);
+//   });
+//   return [...roomSet.keys()];
+// }
 
 // rooms = {
 //   "General": "123",
@@ -93,6 +90,5 @@ module.exports = {
   userLeave,
   geUser,
   getRoomUsers,
-  getAllRooms,
   getRooms,
 };

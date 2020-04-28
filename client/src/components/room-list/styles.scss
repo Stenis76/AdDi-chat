@@ -12,6 +12,15 @@
       &.current-room {
         font-weight: bold;
       }
+
+      .room-name {
+        margin-right: auto;
+      }
+
+      .lock {
+        float: right;
+        width: 1rem;
+      }
     }
   }
 }
