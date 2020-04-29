@@ -7,9 +7,17 @@ const InputBox = ({ callback, title, placeholder, type, emitTyping }) => {
 
   const submit = () => {
     if (input.length > 0) {
-      callback(input);
-      setInput("");
-      emitTyping(false);
+      const [first, rest] = input;
+      if (first === "/") {
+        const query = rest;
+        apiCall(query);
+
+        return;
+      } else {
+        callback(input);
+        setInput("");
+        emitTyping(false);
+      }
     }
   };
 
@@ -20,18 +28,21 @@ const InputBox = ({ callback, title, placeholder, type, emitTyping }) => {
   };
   const [numberApi, setNumberApi] = useState([]);
 
-  useEffect(() => {
-    fetch(`http://numbersapi.com/random/year?json`, {
-      method: "GET",
-    })
+  const apiCall = (query) => {
+    fetch(`http://numbersapi.com/${query}?json`)
       .then((res) => res.json())
       .then((response) => {
-        console.log(response);
-        setNumberApi(response.items);
+        setNumberApi(response.text);
+        console.log(numberApi);
+        callback(numberApi);
+        setInput("");
       })
 
       .catch((error) => console.log(error));
-  });
+  };
+
+  // Backslash lyssnar på när det är dags för anrop
+  //
 
   return (
     <div className="input-box">
