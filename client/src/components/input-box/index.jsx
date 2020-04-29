@@ -7,11 +7,10 @@ const InputBox = ({ callback, title, placeholder, type, emitTyping }) => {
 
   const submit = () => {
     if (input.length > 0) {
-      const [first, rest] = input;
+      const first = input.charAt(0);
       if (first === "/") {
-        const query = rest;
+        const query = input.substring(1);
         apiCall(query);
-
         return;
       } else {
         callback(input);
@@ -28,18 +27,25 @@ const InputBox = ({ callback, title, placeholder, type, emitTyping }) => {
   };
   const [numberApi, setNumberApi] = useState([]);
 
-  const apiCall = (query) => {
-    fetch(`http://numbersapi.com/${query}?json`)
-      .then((res) => res.json())
-      .then((response) => {
-        setNumberApi(response.text);
-        console.log(numberApi);
-        callback(numberApi);
-        setInput("");
-      })
-
-      .catch((error) => console.log(error));
+  const apiCall = async (query) => {
+    let res = await fetch(`http://numbersapi.com/${query}?json`);
+    let response = await res.json();
+    setNumberApi(response.text);
+    callback(numberApi);
+    setInput("");
   };
+
+  // const apiCall = (query) => {
+  //   fetch(`http://numbersapi.com/${query}?json`)
+  //     .then((res) => res.json())
+  //     .then((response) => {
+  //       console.log(response);
+  //       setNumberApi(response.text);
+  //       setInput("");
+  //     })
+
+  //     .catch((error) => console.log(error));
+  // };
 
   // Backslash lyssnar på när det är dags för anrop
   //
