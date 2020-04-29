@@ -41,6 +41,15 @@
     .input-container {
       width: 100%;
 
+      .typing-message {
+        margin: 0;
+        padding-left: 0.6rem;
+        padding-bottom: 0.3rem;
+        font-style: italic;
+        font-size: 0.7rem;
+        color: #222;
+      }
+
       input {
         border-radius: 0rem !important;
       }

@@ -9,6 +9,7 @@ const InputBox = ({ callback, title, placeholder, type, emitTyping }) => {
     if (input.length > 0) {
       callback(input);
       setInput("");
+      emitTyping(false);
     }
   };
 
@@ -32,6 +33,7 @@ const InputBox = ({ callback, title, placeholder, type, emitTyping }) => {
               emitTyping(true);
             } else {
               emitTyping(false);
+              console.log("skriver inte");
             }
           }}
           onKeyPress={submitWithEnter}

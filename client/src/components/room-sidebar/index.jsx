@@ -5,22 +5,16 @@ import InputBoxRoom from "../input-box-room";
 
 import "./styles.scss";
 
-const RoomSidebar = ({
-  rooms,
-  currentRoom,
-  joinRoom,
-  password,
-  passwordChecked,
-}) => {
-  const roomToCreate = (roomName) => {
-    if (passwordChecked == true) {
-      console.log("password is " + password);
-      joinRoom(roomName, password);
-    } else {
-      joinRoom(roomName);
-      console.log("no password");
-    }
-  };
+const RoomSidebar = ({ rooms, currentRoom, joinRoom }) => {
+  // const roomToCreate = (roomName, password) => {
+  //   if (passwordChecked) {
+  //     console.log("password is " + password);
+  //     joinRoom(roomName, password);
+  //   } else {
+  //     joinRoom(roomName);
+  //     console.log("no password");
+  //   }
+  // };
   return (
     <div className="room-sidebar">
       <header className="sidebar-header">
@@ -29,7 +23,7 @@ const RoomSidebar = ({
       <main className="sidebar-content">
         <RoomList rooms={rooms} joinRoom={joinRoom} currentRoom={currentRoom} />
         <InputBoxRoom
-          callback={roomToCreate}
+          callback={joinRoom}
           title={"create"}
           type="text"
           placeholder="Write name of new room"
