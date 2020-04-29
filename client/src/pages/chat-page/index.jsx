@@ -11,6 +11,7 @@ const ChatPage = ({ name, socket }) => {
   const [currentRoom, setCurrentRoom] = useState("General");
   const [rooms, setRooms] = useState([]);
   const [users, setUsers] = useState([]);
+  const [isTypingMsg, setIsTypingMsg] = useState("");
 
   // component did mount
   useEffect(() => {
@@ -36,6 +37,7 @@ const ChatPage = ({ name, socket }) => {
 
     socket.on("user-typing", (msg) => {
       console.log(msg);
+      setIsTypingMsg(msg);
     });
 
     socket.on("wrong-password", (msg) => {
@@ -81,6 +83,7 @@ const ChatPage = ({ name, socket }) => {
         messages={messages}
         sendMessage={sendMessage}
         emitTyping={emitTyping}
+        isTypingMsg={isTypingMsg}
       />
       <UserSidebar users={users} />
     </div>

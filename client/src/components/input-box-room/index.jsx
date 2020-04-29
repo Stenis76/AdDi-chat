@@ -12,7 +12,12 @@ const InputBoxRoom = ({ callback, title, placeholder, type }) => {
 
   const submit = () => {
     if (input.length > 0) {
-      callback(input);
+      if (password.length > 0) {
+        callback(input, password);
+        setPassword("");
+      } else {
+        callback(input);
+      }
       setInput("");
     }
   };
@@ -49,7 +54,7 @@ const InputBoxRoom = ({ callback, title, placeholder, type }) => {
         {passwordChecked ? (
           <input
             className="input-password"
-            type="text"
+            type="password"
             placeholder="Choose a password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
