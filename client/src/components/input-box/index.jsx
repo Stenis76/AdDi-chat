@@ -18,6 +18,20 @@ const InputBox = ({ callback, title, placeholder, type, emitTyping }) => {
       submit();
     }
   };
+  const [numberApi, setNumberApi] = useState([]);
+
+  useEffect(() => {
+    fetch(`http://numbersapi.com/random/year?json`, {
+      method: "GET",
+    })
+      .then((res) => res.json())
+      .then((response) => {
+        console.log(response);
+        setNumberApi(response.items);
+      })
+
+      .catch((error) => console.log(error));
+  });
 
   return (
     <div className="input-box">
