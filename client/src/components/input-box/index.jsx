@@ -9,15 +9,15 @@ const InputBox = ({ callback, title, placeholder, type, emitTyping }) => {
     if (input.length > 0) {
       const first = input.charAt(0);
       if (first === "/") {
-        setApiHelp("Enter a number, or a date /dd/mm/");
         const query = input.substring(1);
         apiCall(query);
-        return;
+        setApiHelp("");
       } else {
         callback(input);
-        setInput("");
-        emitTyping(false);
       }
+
+      emitTyping(false);
+      setInput("");
     }
   };
 
@@ -26,31 +26,31 @@ const InputBox = ({ callback, title, placeholder, type, emitTyping }) => {
       submit();
     }
   };
-  const [numberApi, setNumberApi] = useState([]);
 
   const apiCall = async (query) => {
     let res = await fetch(`http://numbersapi.com/${query}?json`);
     let response = await res.json();
-    setNumberApi(response.text);
-    callback(numberApi);
+
+    callback(response.text);
     setInput("");
-    return;
+
+    return response;
   };
 
-  // const apiCall = (query) => {
-  //   fetch(`http://numbersapi.com/${query}?json`)
-  //     .then((res) => res.json())
-  //     .then((response) => {
-  //       console.log(response);
-  //       setNumberApi(response.text);
-  //       setInput("");
-  //     })
+  const handleChange = (e) => {
+    setInput(e.target.value);
+    if (e.target.value.length > 0) {
+      emitTyping(true);
+    } else {
+      emitTyping(false);
+    }
 
-  //     .catch((error) => console.log(error));
-  // };
-
-  // Backslash lyssnar på när det är dags för anrop
-  //
+    if (e.target.value[0] === "/") {
+      setApiHelp("Enter a number, or a date /dd/mm/");
+    } else {
+      setApiHelp("");
+    }
+  };
 
   return (
     <div className="input-box">
@@ -61,15 +61,7 @@ const InputBox = ({ callback, title, placeholder, type, emitTyping }) => {
           placeholder={placeholder}
           type={type}
           value={input}
-          onChange={(e) => {
-            setInput(e.target.value);
-            if (e.target.value.length > 0) {
-              emitTyping(true);
-            } else {
-              emitTyping(false);
-              console.log("skriver inte");
-            }
-          }}
+          onChange={handleChange}
           onKeyPress={submitWithEnter}
         />
         <button className="btn primary" onClick={submit}>
