@@ -11,9 +11,7 @@ body {
   height: 100vh;
   margin: 0;
   /* overflow: hidden; */
-  font-family: -apple-system, BlinkMacSystemFont, "Comfortaa", "Roboto",
-    "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Comfortaa", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -25,14 +23,7 @@ body {
 }
 
 .blue-bg {
-  background-image: linear-gradient(
-    135deg,
-    #8af0ff 0,
-    #60dafe 25%,
-    #0cc1ed 50%,
-    #00a9dc 75%,
-    #0093cd 100%
-  );
+  background-image: linear-gradient( 135deg, #8af0ff 0, #60dafe 25%, #0cc1ed 50%, #00a9dc 75%, #0093cd 100%);
 }
 
 .red-bg {
@@ -44,10 +35,11 @@ body {
   /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 
-h1,
-h2,
-h3,
-h4 {
+.green-bg {
+  background-color: green;
+}
+
+h1, h2, h3, h4 {
   font-family: "KOHNE MAKINA";
 }
 
@@ -65,8 +57,7 @@ button.primary {
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
 }
 
 #root {

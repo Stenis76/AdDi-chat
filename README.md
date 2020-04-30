@@ -1,8 +1,18 @@
 # AdDi-chat
 
-chatt-baserad app
+Chatt-app med node.express och socket.io av Adam Kjäll och Dick Stenvist
 
-# Assigment in swedish
+## Bygginstruktioner
+
+1. Gå in i server mappen och kör kommandon
+2. "npm install"
+3. Installera nodemon "npm i nodemon"
+4. "npm start"
+5. Gå in i client mappen och kör kommandon
+6. "npm install"
+7. "npm start"
+
+## Assigment in swedish
 
 Lab 2 - Socket Chatt
 

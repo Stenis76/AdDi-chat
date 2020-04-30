@@ -48,36 +48,6 @@ function getRoomUsers(roomName) {
   return users.filter((user) => user.room === roomName);
 }
 
-// function getAllRooms() {
-//   const roomSet = new Set();
-//   users.forEach((user) => {
-//     if (user.roomName) roomSet.add(user.roomName);
-//   });
-//   return [...roomSet.keys()];
-// }
-
-// rooms = {
-//   "General": "123",
-//   "hej" : null
-// }
-
-/*
-[
-  ["General", "123"].
-  ["hej", null]
-]
-
-[
-  { name: "General",
-    password: "123"  
-  },
-  {
-     name: "hej",
-    password: null 
-  }
-]
-*/
-
 function getRooms() {
   return Object.entries(rooms).map((entry) => ({
     name: entry[0],

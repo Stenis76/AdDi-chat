@@ -18,10 +18,15 @@
   .author {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     color: #555;
 
     .name {
       margin-right: 2rem;
+    }
+
+    .time {
+      font-size: 0.85rem;
     }
   }
 }

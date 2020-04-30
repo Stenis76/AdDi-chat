@@ -15,6 +15,7 @@ const InputBoxRoom = ({ callback, title, placeholder, type }) => {
       if (password.length > 0) {
         callback(input, password);
         setPassword("");
+        setPasswordChecked(false);
       } else {
         callback(input);
       }
@@ -32,7 +33,7 @@ const InputBoxRoom = ({ callback, title, placeholder, type }) => {
     <div className="input-box">
       <div className="container">
         <input
-          className="input-room"
+          className="input-new-room"
           placeholder={placeholder}
           type={type}
           value={input}
@@ -42,7 +43,7 @@ const InputBoxRoom = ({ callback, title, placeholder, type }) => {
           onKeyPress={submitWithEnter}
         />
 
-        <label className="input">
+        <label className="checkbox-label">
           <input
             className="checkbox"
             onChange={handleClick}

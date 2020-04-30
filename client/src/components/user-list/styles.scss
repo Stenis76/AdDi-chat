@@ -5,20 +5,28 @@
 
   ul {
     width: 100%;
+    margin: 0;
+    margin-top: 0.4rem;
     list-style-type: none;
 
     .user {
       margin-bottom: 0.5rem;
       padding: 0.5rem;
       border-radius: 0.3rem;
-      // backdrop-filter: brightness(200%) ;
-      // backdrop-filter: hue-rotate(120deg);
-      backdrop-filter: invert(20%) brightness(80%) saturate(120%);
+
+      // backdrop-filter: invert(20%) brightness(95%) saturate(120%);
+
+      &.current-user {
+        font-weight: bold;
+        backdrop-filter: none;
+        backdrop-filter: saturate(500%) brightness(95%);
+      }
+
       .status {
+        background-color: green;
         width: 10px;
         height: 10px;
         border-radius: 999rem;
-        background-color: rgb(5, 150, 5);
         display: inline-block;
         margin-right: 0.5rem;
       }

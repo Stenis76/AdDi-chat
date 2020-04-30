@@ -17,8 +17,6 @@ io.on("connection", (socket) => {
 
   socket.on("join-room", (room, name) => {
     // leave previous room before joining new one
-    console.log("new room", room);
-
     leaveRoom(socket);
     // then join room
     joinRoom(socket, name, room);
@@ -72,11 +70,13 @@ function joinRoom(socket, name, room) {
     socket.emit("message", {
       name: "ChatBot",
       text: `Welcome to room "${room.name}"`,
+      createdAt: new Date().toTimeString().slice(0, 5),
     });
     // broadcast user connected message to the room
     socket.broadcast.to(room.name).emit("message", {
       name: "ChatBot",
       text: `${name} joined "${room.name}"`,
+      createdAt: new Date().toTimeString().slice(0, 5),
     });
     // send the rooms users to the client who joined
     io.in(room.name).emit("room-users", getRoomUsers(room.name));

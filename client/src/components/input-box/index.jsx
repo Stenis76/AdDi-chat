@@ -46,7 +46,7 @@ const InputBox = ({ callback, title, placeholder, type, emitTyping }) => {
     }
 
     if (e.target.value[0] === "/") {
-      setApiHelp("Enter a number, or a date /dd/mm/");
+      setApiHelp('Commands "/number",  "/day/month" or "/random"');
     } else {
       setApiHelp("");
     }
@@ -55,7 +55,7 @@ const InputBox = ({ callback, title, placeholder, type, emitTyping }) => {
   return (
     <div className="input-box">
       <div className="container">
-        <div className="api-help-box">{apiHelp}</div>
+        <p className="api-help-box">{apiHelp}</p>
         <input
           className="input"
           placeholder={placeholder}

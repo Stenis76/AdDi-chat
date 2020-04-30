@@ -9,10 +9,12 @@ const RoomList = ({ rooms, currentRoom, joinRoom }) => {
 
   const handleRoomClick = (room) => {
     if (currentRoom.name === room.name) return;
+
     if (room.password) {
       const password = prompt("Enter password: ");
+      console.log("input pass", password);
       if (room.password === password) {
-        joinRoom(room.name);
+        joinRoom(room.name, password);
       }
     } else {
       joinRoom(room.name);
@@ -30,7 +32,7 @@ const RoomList = ({ rooms, currentRoom, joinRoom }) => {
             key={index}
             onClick={() => handleRoomClick(room)}
           >
-            <span className="room-name">{room.name}</span>
+            <span className="room-name">#{room.name}</span>
             {room.password && <img className="lock" src={lock} alt="" />}
           </li>
         ))}

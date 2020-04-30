@@ -1,16 +1,21 @@
 .room-list {
   margin-bottom: 2rem;
   ul {
-    list-style-type: "#";
-    padding-left: 1rem;
+    list-style-type: none;
+    padding-left: 0;
     margin: 0;
+    margin-top: 0.4rem;
 
     .room {
-      margin: 0.5rem 0;
+      margin-bottom: 0.5rem;
+      padding: 0.5rem;
+      border-radius: 0.3rem;
       cursor: pointer;
 
       &.current-room {
         font-weight: bold;
+        // backdrop-filter: brightness(250%);
+        backdrop-filter: saturate(500%) brightness(95%);
       }
 
       .room-name {

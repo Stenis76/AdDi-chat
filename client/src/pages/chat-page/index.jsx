@@ -52,7 +52,12 @@ const ChatPage = ({ name, socket }) => {
   }, []);
 
   const sendMessage = (message) => {
-    const formattedMessage = { text: message, name };
+    const time = new Date().toTimeString().slice(0, 5);
+    const formattedMessage = {
+      text: message,
+      name,
+      createdAt: time,
+    };
     setMessages((prev) => [...prev, formattedMessage]);
     socket.emit("message", currentRoom.name, formattedMessage);
   };
@@ -85,7 +90,7 @@ const ChatPage = ({ name, socket }) => {
         emitTyping={emitTyping}
         isTypingMsg={isTypingMsg}
       />
-      <UserSidebar users={users} />
+      <UserSidebar users={users} username={name} />
     </div>
   );
 };
