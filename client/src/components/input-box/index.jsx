@@ -4,11 +4,12 @@ import "./styles.scss";
 
 const InputBox = ({ callback, title, placeholder, type, emitTyping }) => {
   const [input, setInput] = useState("");
-
+  const [apiHelp, setApiHelp] = useState("");
   const submit = () => {
     if (input.length > 0) {
       const first = input.charAt(0);
       if (first === "/") {
+        setApiHelp("Enter a number, or a date /dd/mm/");
         const query = input.substring(1);
         apiCall(query);
         return;
@@ -33,6 +34,7 @@ const InputBox = ({ callback, title, placeholder, type, emitTyping }) => {
     setNumberApi(response.text);
     callback(numberApi);
     setInput("");
+    return;
   };
 
   // const apiCall = (query) => {
@@ -53,6 +55,7 @@ const InputBox = ({ callback, title, placeholder, type, emitTyping }) => {
   return (
     <div className="input-box">
       <div className="container">
+        <div className="api-help-box">{apiHelp}</div>
         <input
           className="input"
           placeholder={placeholder}

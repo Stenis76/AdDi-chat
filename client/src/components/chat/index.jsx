@@ -27,6 +27,7 @@ const Chat = ({ username, messages, sendMessage, emitTyping, isTypingMsg }) => {
         </ul>
         <div className="input-container">
           <p className="typing-message">{isTypingMsg}</p>
+
           <InputBox
             callback={sendMessage}
             emitTyping={emitTyping}
