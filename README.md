@@ -1,6 +1,6 @@
 # AdDi-chat
 
-Chatt-app med node.express och socket.io av Adam Kjäll och Dick Stenvist
+Chatt-app gjord med react, express.js och socket.io av Adam Kjäll och Dick Stenvist
 
 ## Bygginstruktioner
 
