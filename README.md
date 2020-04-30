@@ -2,7 +2,7 @@
 
 Chatt-app gjord med react, express.js och socket.io av Adam Kjäll och Dick Stenvist
 
-Github-länk: https://github.com/Stenis76/AdDi-chat/edit/master/README.md
+Github-länk: https://github.com/Stenis76/AdDi-chat
 
 ## Bygginstruktioner
 
