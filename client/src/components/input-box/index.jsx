@@ -4,12 +4,20 @@ import "./styles.scss";
 
 const InputBox = ({ callback, title, placeholder, type, emitTyping }) => {
   const [input, setInput] = useState("");
-
+  const [apiHelp, setApiHelp] = useState("");
   const submit = () => {
     if (input.length > 0) {
-      callback(input);
-      setInput("");
+      const first = input.charAt(0);
+      if (first === "/") {
+        const query = input.substring(1);
+        apiCall(query);
+        setApiHelp("");
+      } else {
+        callback(input);
+      }
+
       emitTyping(false);
+      setInput("");
     }
   };
 
@@ -19,23 +27,41 @@ const InputBox = ({ callback, title, placeholder, type, emitTyping }) => {
     }
   };
 
+  const apiCall = async (query) => {
+    let res = await fetch(`http://numbersapi.com/${query}?json`);
+    let response = await res.json();
+
+    callback(response.text);
+    setInput("");
+
+    return response;
+  };
+
+  const handleChange = (e) => {
+    setInput(e.target.value);
+    if (e.target.value.length > 0) {
+      emitTyping(true);
+    } else {
+      emitTyping(false);
+    }
+
+    if (e.target.value[0] === "/") {
+      setApiHelp("Enter a number, or a date /dd/mm/");
+    } else {
+      setApiHelp("");
+    }
+  };
+
   return (
     <div className="input-box">
       <div className="container">
+        <div className="api-help-box">{apiHelp}</div>
         <input
           className="input"
           placeholder={placeholder}
           type={type}
           value={input}
-          onChange={(e) => {
-            setInput(e.target.value);
-            if (e.target.value.length > 0) {
-              emitTyping(true);
-            } else {
-              emitTyping(false);
-              console.log("skriver inte");
-            }
-          }}
+          onChange={handleChange}
           onKeyPress={submitWithEnter}
         />
         <button className="btn primary" onClick={submit}>
